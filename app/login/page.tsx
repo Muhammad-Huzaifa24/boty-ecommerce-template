@@ -37,13 +37,13 @@ export default function LoginPage() {
             </div>
 
             {/* Right: Form */}
-            <div className="flex flex-col justify-center px-10 py-14 bg-background">
-              <div className="mb-8">
-                <h1 className="font-serif text-3xl text-foreground mb-1">Log in to Boty</h1>
-                <p className="text-sm text-muted-foreground">Enter your details below</p>
+            <div className="flex flex-col justify-center items-center lg:items-start px-6 sm:px-10 py-14 bg-background">
+              <div className="w-full max-w-sm lg:max-w-none mb-8">
+                <h1 className="font-serif text-2xl sm:text-3xl text-foreground mb-1 text-center lg:text-left">Log in to Boty</h1>
+                <p className="text-sm text-muted-foreground text-center lg:text-left">Enter your details below</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5 w-full max-w-sm lg:max-w-none">
                 <div>
                   <input
                     required
