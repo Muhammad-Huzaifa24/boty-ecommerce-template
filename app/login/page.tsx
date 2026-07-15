@@ -70,14 +70,14 @@ export default function LoginPage() {
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between pt-2">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
                   <button
                     type="submit"
-                    className="bg-primary text-primary-foreground px-10 py-3 rounded-full text-sm tracking-wide hover:bg-primary/90 boty-transition"
+                    className="w-full sm:w-auto bg-primary text-primary-foreground px-10 py-3 rounded-full text-sm tracking-wide hover:bg-primary/90 boty-transition"
                   >
                     Log In
                   </button>
-                  <Link href="#" className="text-sm text-primary hover:underline boty-transition">
+                  <Link href="#" className="text-sm text-primary hover:underline boty-transition text-center sm:text-left">
                     Forgot Password?
                   </Link>
                 </div>
