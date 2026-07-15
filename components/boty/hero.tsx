@@ -32,17 +32,17 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full pt-20 mr-14 lg:mr-0">
+      <div className="relative z-10 w-full pt-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="w-full lg:max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
+          <div className="w-full max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
             <span className="text-sm uppercase mb-6 block text-black animate-blur-in opacity-0 tracking-normal" style={{ animationDelay: '0.2s', animationFillMode: 'forwards' }}>
               Natural Skincare
             </span>
-            <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 text-balance text-black">
-              <span className="block animate-blur-in opacity-0 font-semibold" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>Glow gently.</span>
-              <span className="block animate-blur-in opacity-0 font-semibold xl:text-9xl text-7xl" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>Naturally you.</span>
+            <h2 className="font-serif leading-[1.1] mb-6 text-balance text-black">
+              <span className="block animate-blur-in opacity-0 font-semibold text-5xl md:text-6xl lg:text-7xl" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>Glow gently.</span>
+              <span className="block animate-blur-in opacity-0 font-semibold text-6xl md:text-7xl lg:text-8xl xl:text-9xl" style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}>Naturally you.</span>
             </h2>
-            <p className="text-lg leading-relaxed mb-10 max-w-md mx-auto lg:mx-0 text-black animate-blur-in opacity-0" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+            <p className="text-base md:text-lg leading-relaxed mb-10 max-w-md mx-auto lg:mx-0 text-black animate-blur-in opacity-0" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
               Discover skincare that breathes with you. Pure ingredients, gentle rituals, radiant results.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-blur-in opacity-0" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>

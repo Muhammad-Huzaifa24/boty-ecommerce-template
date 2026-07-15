@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag } from "lucide-react"
+import { ShoppingBag, Heart } from "lucide-react"
 import { useCart } from "./cart-context"
+import { useWishlist } from "./wishlist-context"
 
 type Category = "cream" | "oil" | "serum"
 
@@ -148,6 +149,7 @@ export function ProductGrid() {
   const gridRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const { addItem } = useCart()
+  const { toggleItem, isWishlisted } = useWishlist()
   
   const filteredProducts = products.filter(product => product.category === selectedCategory)
 
@@ -216,7 +218,7 @@ export function ProductGrid() {
           <span className={`text-sm tracking-[0.3em] uppercase text-primary mb-4 block ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.2s', animationFillMode: 'forwards' } : {}}>
             Our Collection
           </span>
-          <h2 className={`font-serif leading-tight text-foreground mb-4 text-balance text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
+          <h2 className={`font-serif leading-tight text-foreground mb-4 text-balance text-4xl md:text-5xl lg:text-7xl ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.4s', animationFillMode: 'forwards' } : {}}>
             Gentle essentials
           </h2>
           <p className={`text-lg text-muted-foreground max-w-md mx-auto ${headerVisible ? 'animate-blur-in opacity-0' : 'opacity-0'}`} style={headerVisible ? { animationDelay: '0.6s', animationFillMode: 'forwards' } : {}}>
@@ -289,6 +291,28 @@ export function ProductGrid() {
                       {product.badge}
                     </span>
                   )}
+                  {/* Wishlist button */}
+                  <button
+                    type="button"
+                    className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center boty-shadow boty-transition hover:scale-110"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      toggleItem({
+                        id: product.id,
+                        name: product.name,
+                        description: product.description,
+                        price: product.price,
+                        originalPrice: product.originalPrice,
+                        image: product.image
+                      })
+                    }}
+                    aria-label="Toggle wishlist"
+                  >
+                    <Heart
+                      className={`w-3.5 h-3.5 boty-transition ${isWishlisted(product.id) ? "fill-primary text-primary" : "text-foreground/60"}`}
+                    />
+                  </button>
                   {/* Quick add button */}
                   <button
                     type="button"

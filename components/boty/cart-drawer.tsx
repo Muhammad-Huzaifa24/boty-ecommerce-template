@@ -2,6 +2,7 @@
 
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import {
   Drawer,
   DrawerClose,
@@ -21,7 +22,7 @@ export function CartDrawer() {
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen} direction="right">
-      <DrawerContent className="h-full w-full sm:max-w-[440px]">
+      <DrawerContent className="h-full">
         <DrawerHeader className="border-b border-border/50 p-6 py-2.5">
           <DrawerTitle className="font-serif text-2xl">Cart</DrawerTitle>
           <DrawerDescription>{itemCount} {itemCount === 1 ? 'item' : 'items'}</DrawerDescription>
@@ -43,11 +44,11 @@ export function CartDrawer() {
               </DrawerClose>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-4">
               {items.map((item) => (
-                <div key={item.id} className="flex gap-4">
+                <div key={item.id} className="flex gap-3 pb-4 border-b border-border/50 last:border-0 last:pb-0">
                   {/* Product Image */}
-                  <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
+                  <div className="relative w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden bg-muted">
                     <Image
                       src={item.image || "/placeholder.svg"}
                       alt={item.name}
@@ -58,45 +59,43 @@ export function CartDrawer() {
 
                   {/* Product Details */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-serif text-base text-foreground mb-1 font-semibold">{item.name}</h3>
-                    <p className="text-muted-foreground mb-3 text-sm">{item.description}</p>
-                    
-                    {/* Quantity Controls */}
-                    <div className="flex items-center gap-3">
+                    {/* Name + Price row */}
+                    <div className="flex items-start justify-between gap-2 mb-0.5">
+                      <h3 className="font-serif text-sm text-foreground font-semibold leading-snug">{item.name}</h3>
+                      <span className="font-medium text-foreground text-sm flex-shrink-0">${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                    <p className="text-muted-foreground text-xs mb-2 truncate">{item.description}</p>
+
+                    {/* Quantity + Remove */}
+                    <div className="flex items-center gap-2">
                       <div className="flex items-center border border-border rounded-full">
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="p-1.5 hover:bg-muted boty-transition rounded-l-full"
+                          className="p-1 hover:bg-muted boty-transition rounded-l-full"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="w-3 h-3" />
                         </button>
-                        <span className="px-3 text-sm font-medium">{item.quantity}</span>
+                        <span className="px-2.5 text-xs font-medium">{item.quantity}</span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="p-1.5 hover:bg-muted boty-transition rounded-r-full"
+                          className="p-1 hover:bg-muted boty-transition rounded-r-full"
                           aria-label="Increase quantity"
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
-
                       <button
                         type="button"
                         onClick={() => removeItem(item.id)}
-                        className="p-1.5 text-muted-foreground hover:text-destructive boty-transition"
+                        className="p-1 text-muted-foreground hover:text-destructive boty-transition"
                         aria-label="Remove item"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
-                  </div>
-
-                  {/* Price */}
-                  <div className="text-right">
-                    <p className="font-medium text-foreground">${item.price * item.quantity}</p>
                   </div>
                 </div>
               ))}
@@ -123,20 +122,22 @@ export function CartDrawer() {
             </div>
 
             {/* Checkout Button */}
-            <button
-              type="button"
-              className="w-full bg-primary text-primary-foreground py-4 rounded-full font-medium hover:bg-primary/90 boty-transition"
-            >
-              Checkout
-            </button>
+            <DrawerClose asChild>
+              <Link
+                href="/cart"
+                className="w-full bg-primary text-primary-foreground py-4 rounded-full font-medium hover:bg-primary/90 boty-transition text-center block"
+              >
+                View Cart
+              </Link>
+            </DrawerClose>
 
             <DrawerClose asChild>
-              <button
-                type="button"
-                className="w-full border border-border text-foreground py-4 rounded-full font-medium hover:bg-muted boty-transition"
+              <Link
+                href="/checkout"
+                className="w-full border border-border text-foreground py-4 rounded-full font-medium hover:bg-muted boty-transition text-center block"
               >
-                Continue Shopping
-              </button>
+                Checkout
+              </Link>
             </DrawerClose>
           </DrawerFooter>
         )}

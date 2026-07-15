@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import { DM_Sans, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/components/boty/cart-context'
+import { CartDrawer } from '@/components/boty/cart-drawer'
+import { WishlistProvider } from '@/components/boty/wishlist-context'
 import './globals.css'
 
 const dmSans = DM_Sans({ 
@@ -53,9 +55,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dmSans.variable} ${playfairDisplay.variable} font-sans antialiased`}>
-        <CartProvider>
-          {children}
-        </CartProvider>
+        <WishlistProvider>
+          <CartProvider>
+            {children}
+            <CartDrawer />
+          </CartProvider>
+        </WishlistProvider>
         <Analytics />
       </body>
     </html>

@@ -3,9 +3,11 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ShoppingBag, SlidersHorizontal, X } from "lucide-react"
+import { ShoppingBag, SlidersHorizontal, X, Heart } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
+import { useCart } from "@/components/boty/cart-context"
+import { useWishlist } from "@/components/boty/wishlist-context"
 
 const products = [
   // Serums
@@ -316,6 +318,8 @@ function ProductCard({
   isVisible: boolean
 }) {
   const [imageLoaded, setImageLoaded] = useState(false)
+  const { addItem } = useCart()
+  const { toggleItem, isWishlisted } = useWishlist()
 
   return (
     <Link
@@ -358,12 +362,33 @@ function ProductCard({
               {product.badge}
             </span>
           )}
+          {/* Wishlist button */}
+          <button
+            type="button"
+            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center boty-shadow boty-transition hover:scale-110"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              toggleItem({ id: product.id, name: product.name, description: product.description, price: product.price, originalPrice: product.originalPrice, image: product.image })
+            }}
+            aria-label="Toggle wishlist"
+          >
+            <Heart className={`w-3.5 h-3.5 boty-transition ${isWishlisted(product.id) ? "fill-primary text-primary" : "text-foreground/60"}`} />
+          </button>
           {/* Quick add button */}
           <button
             type="button"
             className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 boty-transition boty-shadow"
             onClick={(e) => {
               e.preventDefault()
+              e.stopPropagation()
+              addItem({
+                id: product.id,
+                name: product.name,
+                description: product.description,
+                price: product.price,
+                image: product.image
+              })
             }}
             aria-label="Add to cart"
           >

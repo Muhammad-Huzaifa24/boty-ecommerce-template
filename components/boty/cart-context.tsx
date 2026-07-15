@@ -41,7 +41,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...currentItems, { ...newItem, quantity: 1 }]
     })
-    setIsOpen(true)
   }
 
   const removeItem = (id: string) => {

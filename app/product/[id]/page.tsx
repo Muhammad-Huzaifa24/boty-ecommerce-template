@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { ChevronLeft, Minus, Plus, ChevronDown, Leaf, Heart, Award, Recycle, Star, Check } from "lucide-react"
 import { Header } from "@/components/boty/header"
 import { Footer } from "@/components/boty/footer"
+import { useCart } from "@/components/boty/cart-context"
 
 const products: Record<string, {
   id: string
@@ -98,6 +99,8 @@ export default function ProductPage() {
   const [quantity, setQuantity] = useState(1)
   const [openAccordion, setOpenAccordion] = useState<AccordionSection | null>("details")
   const [isAdded, setIsAdded] = useState(false)
+  const { addItem } = useCart()
+  const router = useRouter()
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -108,8 +111,44 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      image: product.image
+    })
+    for (let i = 1; i < quantity; i++) {
+      addItem({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        image: product.image
+      })
+    }
     setIsAdded(true)
     setTimeout(() => setIsAdded(false), 2000)
+  }
+
+  const handleBuyNow = () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      image: product.image
+    })
+    for (let i = 1; i < quantity; i++) {
+      addItem({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        image: product.image
+      })
+    }
+    router.push("/checkout")
   }
 
   const accordionItems: { key: AccordionSection; title: string; content: string }[] = [
@@ -252,6 +291,7 @@ export default function ProductPage() {
                 </button>
                 <button
                   type="button"
+                  onClick={handleBuyNow}
                   className="flex-1 inline-flex items-center justify-center gap-2 bg-transparent border border-foreground/20 text-foreground px-8 py-4 rounded-full text-sm tracking-wide boty-transition hover:bg-foreground/5"
                 >
                   Buy Now
